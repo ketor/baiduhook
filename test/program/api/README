@@ -1,0 +1,10 @@
+该demo是使用bhook API同时attach替换系统函数fread和函数func，同时通过fault_enable给func替换函数传递自定义结构体，使其在(num>=10 && num<20)时返回指定错误值，其余情况调用原函数
+
+main函数里循环调用了func，可以在命令行下通过bhook对-e为func或者fread的函数发送异常指令，示例如下：
+1. 启动./api
+2. 观察(num>=10 && num<20)时的输出
+3. 同时可以在命令行下开启异常
+	bhook -e func -p 50 -i -1 <pid>让func 50%概率返回-1
+	bhook -e fread -p 50 -i 5 <pid>让fread 50%概率返回EIO错误(#define EIO 5)
+4. 关闭异常可以用-d指令，如
+	bhook -d func <pid>

@@ -1,0 +1,181 @@
+#!/bin/bash
+
+# default remote control over named pipes prefix
+FIFO_PREFIX="${TMPDIR:-/tmp}/fault"
+
+# default library path to look for preloader libraries
+PLIBPATH="@prefix@/so"
+
+USER_LIB=""
+
+# the enable string to pass to the preload library (via the FIU_ENABLE
+# environment variable)
+CMDS=""
+
+HELP_MSG="
+Usage: bhook [options] [program [arguments] or pid]
+
+The following options are supported:
+
+  -u path	Path where to load the user preload libraries
+
+  -e fpname	Enable the given failure point name.
+  -p prob	... with the given probability (defaults to 100%).
+  -i errno	... and this error num (defaults to 0).
+ 
+For example:
+
+  bhook ./test_xx -x
+
+  bhook -u {user_dir}/hook.so ./test_xx
+
+  bhook -e write -p 50 -i 28 ./test_xx
+
+  bhook -e malloc -p 100 <pid>
+  bhook -d malloc <pid>
+"
+
+
+#
+# Parse the options
+#
+
+if [ $# -lt 1 ]; then
+	echo "$HELP_MSG"
+	exit 1
+fi
+
+function opts_reset() {
+	NAME=""
+	ENABLE=1
+	PROB=100
+	ERRNO=0
+}
+
+function add_cmd() {
+	if [ "$NAME" != "" ]; then
+		if [ "$CMDS" == "" ]; then
+			CMDS="$NAME,$ENABLE,$PROB,$ERRNO"
+		else
+			CMDS="$CMDS;$NAME,$ENABLE,$PROB,$ERRNO"
+		fi
+		opts_reset;
+	fi
+}
+opts_reset;
+while getopts "+e:p:i:d:u:h" opt; do
+	case $opt in
+	e)
+		add_cmd
+		NAME="$OPTARG"
+		ENABLE=1
+		;;
+	p)
+		PROB="$OPTARG"
+		;;
+	i)
+		ERRNO="$OPTARG"
+		;;
+	d)
+		add_cmd
+		NAME="$OPTARG"
+		ENABLE=0
+		;;
+	u)
+		USER_LIB="$OPTARG"
+		;;
+	h|*)
+		echo "$HELP_MSG"
+		exit 1
+		;;
+	esac;
+done
+
+# add leftovers
+if [ "$NAME" != "" ]; then
+	add_cmd
+fi
+
+# eat the parameters we already processed
+shift $(( $OPTIND - 1 ))
+
+
+function is_pid() {
+	local target="$1"
+
+	if [ -f "$target" ]; then
+		return 1
+	fi
+
+	echo $target | grep "^[0-9]*$" >/dev/null
+	local is_digit=$?
+	if [ $is_digit -eq 0 ]; then
+		return 0
+	fi
+	return 1
+}
+
+function run() {
+	BFD_LIB=`/sbin/ldconfig -p | grep libbfd | head -n 1 | awk '{print $4}'`
+	OPCODES_LIB=`/sbin/ldconfig -p | grep libopcodes | head -n 1 | awk '{print $4}'`
+
+	if [ -n "@BINUTILS_PATH@" ]; then
+		if [ -f "@BINUTILS_PATH@/lib/libbfd.so" ]; then
+			BFD_LIB="@BINUTILS_PATH@/lib/libbfd.so"
+		fi
+		if [ -f "@BINUTILS_PATH@/lib/libopcodes.so" ]; then
+			OPCODES_LIB="@BINUTILS_PATH@/lib/libopcodes.so"
+		fi
+	fi
+
+	# additional preloader libraries to use
+	DEPEND_LIB="$OPCODES_LIB $BFD_LIB"
+	BHOOK_MAIN_LIB="$PLIBPATH/bhook_main.so"
+
+	FAULT_COMMON_LIB=""
+	FAULT_PRELOAD_LIBS=("fault_disk.so" "fault_memory.so" "fault_net.so")
+	for((i=0; $i<${#FAULT_PRELOAD_LIBS[@]}; i=$i+1))
+	do
+		FAULT_COMMON_LIB="$FAULT_COMMON_LIB $PLIBPATH/${FAULT_PRELOAD_LIBS[$i]}"
+	done
+
+	#
+	# Run the application
+	#
+
+	export FIFO_PREFIX
+	#init enable
+	export FAULT_INIT_CMDS="$CMDS"
+	export LD_PRELOAD="$USER_LIB $FAULT_COMMON_LIB $BHOOK_MAIN_LIB $DEPEND_LIB"
+	exec "$@"
+}
+
+function send_cmds() {
+	local pids
+	for i in "$@"; do
+		if kill -0 $i > /dev/null 2> /dev/null && \
+				test -p	"$FIFO_PREFIX-$i.out"; then
+			pids="$pids $i"
+		else
+			echo "Error: unknown pid or named pipe $i, skipping"
+			echo "Note that options must come before the PID"
+		fi
+	done
+	for i in $pids; do
+		fifo_file="$FIFO_PREFIX-$i"
+		echo "$CMDS" > $fifo_file.in
+		result="`cat $fifo_file.out`"
+		if [ "$result" -eq 0 ]; then
+			echo "Command successful"
+		else
+			echo "Command error: $result"
+		fi
+	done
+}
+
+is_pid "$1"
+if [ $? -eq 0 ];then
+	send_cmds "$@"
+else
+	run "$@"
+fi

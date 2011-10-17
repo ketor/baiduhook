@@ -1,0 +1,1 @@
+该demo演示直接用bhook API attach_func替换系统函数malloc，并通过fault_enable来enable malloc的异常

@@ -1,0 +1,11 @@
+client端网络不可达：
+1.启动server: ./fserver
+2.用bhook启动client：sh run.sh ./fclient
+3.pgrep fclient获取pid
+4.bhook -e connect -p 100 -i 101 <pid>
+
+server端读数据时连接断开
+1.用bhook启动server：sh run.sh ./fserver
+2.启动client: ./fclient
+3.pgrep fserver获取pid
+4.bhook -e recv -p 100 -i 104 <pid>

@@ -1,0 +1,2 @@
+./simple正常启动会执行A、B、C
+sh run.sh启动会执行A、B、D
