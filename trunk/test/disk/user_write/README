@@ -1,0 +1,4 @@
+该demo演示如何自定义write函数，使得写磁盘时文件名为"data.txt"会失败，其它文件名成功
+写失败：sh run.sh ./user_write data.txt
+写成功：./user_write data.txt
+写成功：sh run.sh ./user_write hello.txt

@@ -1,0 +1,1 @@
+该demo通过链接bhook的lib库使用API进行操作，可以不用fault-run来启动，直接./attachlib即可

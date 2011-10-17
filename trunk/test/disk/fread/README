@@ -1,0 +1,1 @@
+该demo演示通过bhook启动readfile让其fread 80%概率返回EIO错误(#define EIO 5)

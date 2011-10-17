@@ -1,0 +1,4 @@
+该demo演示磁盘空间不足，让write产生ENOSPC错误(#define ENOSPC 28)
+1. sh run.sh用bhook启动write
+2. pgrep writefile获取<pid>
+2. bhook -e write -p 100 -i 28 <pid>产生磁盘空间不足的错误
