@@ -3,10 +3,12 @@
 Demos as follow:
   * *System* shows hook system method
     * *disk*
-      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/write/writefile.cpp Write] trigger disk error by the command line
+      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/write/writefile.cpp Write] trigger disk error by using default load library
         # {{{bhook ./writefile}}}
         # {{{pgrep writefile}}}
         # {{{bhook -e write -p 100 -i 28 <pid>}}}
+      * UserWrite trigger disk error by using user hooking library.(Source:[http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/user_write/user_write.cpp user_write.cpp], Hook:[http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/user_write/hook.cpp hook.cpp])
+        # {{{bhook -u hook.so ./user_write}}}
     * *memory*
       * [http://code.google.com/p/baiduhook/source/browse/trunk/test/memory/api/malloc.cpp Malloc] hooks system method *malloc* by using API
     * *net* similar to disk demos
