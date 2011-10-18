@@ -1,0 +1,9 @@
+#summary Baidu C/C++ Hooking Framework Demos.
+
+Demos shows:
+  * System
+    * disk
+    * net
+  * Program
+  * Unittest
+    * [https://baiduhook.googlecode.com/svn/trunk/test/unittest/simple/test_attach.cpp Simple] uses api in unittest.
