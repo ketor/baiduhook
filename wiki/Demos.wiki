@@ -7,7 +7,7 @@ Demos as follow:
         # {{{bhook ./writefile}}}
         # {{{pgrep writefile}}}
         # {{{bhook -e write -p 100 -i 28 <pid>}}}
-      * UserWrite trigger disk error by using user hooking library.(Source:[http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/user_write/user_write.cpp user_write.cpp], Hook:[http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/user_write/hook.cpp hook.cpp])
+      * trigger disk error by using user hooking library.(Source:[http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/user_write/user_write.cpp user_write.cpp], Hook:[http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/user_write/hook.cpp hook.cpp])
         # {{{bhook -u hook.so ./user_write}}}
     * *memory*
       * [http://code.google.com/p/baiduhook/source/browse/trunk/test/memory/api/malloc.cpp Malloc] hooks system method *malloc* by using API
@@ -15,7 +15,7 @@ Demos as follow:
       * Network is unreachable:  {{{bhook -e connect -p 100 -i 101 <pid>}}}
       * Connection reset by peer:  {{{bhook -e recv -p 100 -i 104 <pid>}}}
     * *other* 
-      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/my_printf.cpp Printf] hooks system method *printf* through shared library
+      * hooks system method *printf* through shared library.(Source:[http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/main.cpp main.cpp], Hook:[http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/my_printf.cpp printf.cpp])
         # {{{bhook -u my_printf.so ./main}}}
   * *Program* shows a variety of hook method for the program
     * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/simple/hook.cpp Simple] hooks simple method through shared library
