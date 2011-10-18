@@ -1,11 +1,20 @@
 #summary Baidu C/C++ Hooking Framework Demos.
 
-Demos shows:
-  * *System*
-    * disk
-    * memory
-    * net
-    * other
+Demos as follow:
+  * *System* shows hook system method
+    * *disk*
+      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/write/writefile.cpp Write] trigger disk error by the command line
+        # {{{bhook ./writefile}}}
+        # {{{pgrep writefile}}}
+        # {{{bhook -e write -p 100 -i 28 <pid>}}}
+    * *memory*
+      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/memory/api/malloc.cpp Malloc] hooks system method *malloc* by using API
+    * *net* similar to disk demos
+      * Network is unreachable:  {{{bhook -e connect -p 100 -i 101 <pid>}}}
+      * Connection reset by peer:  {{{bhook -e recv -p 100 -i 104 <pid>}}}
+    * *other* 
+      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/my_printf.cpp Printf] hooks system method *printf* 
+        # {{{bhook -u my_printf.so ./main}}}
   * *Program* shows a variety of hook method for the program
     * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/simple/hook.cpp Simple] hooks simple method through shared library
     * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/library/attachlib.cpp Library] hooks static library method by using API. 
