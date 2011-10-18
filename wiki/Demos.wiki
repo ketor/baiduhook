@@ -13,7 +13,7 @@ Demos as follow:
       * Network is unreachable:  {{{bhook -e connect -p 100 -i 101 <pid>}}}
       * Connection reset by peer:  {{{bhook -e recv -p 100 -i 104 <pid>}}}
     * *other* 
-      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/my_printf.cpp Printf] hooks system method *printf* 
+      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/my_printf.cpp Printf] hooks system method *printf* through shared library
         # {{{bhook -u my_printf.so ./main}}}
   * *Program* shows a variety of hook method for the program
     * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/simple/hook.cpp Simple] hooks simple method through shared library
