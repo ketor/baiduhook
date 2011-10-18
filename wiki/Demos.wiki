@@ -1,16 +1,16 @@
 #summary Baidu C/C++ Hooking Framework Demos.
 
 Demos shows:
-  * System
+  * *System*
     * disk
     * memory
     * net
     * other
-  * Program shows a variety of hook method for the program
-    * Simple
-    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/library/attachlib.cpp library] hooks static library method. 
+  * *Program* shows a variety of hook method for the program
+    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/simple/hook.cpp Simple] hooks simple method through shared library
+    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/library/attachlib.cpp Library] hooks static library method by using API. 
     * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/api/api.cpp API] hooks system method *fread* and program method *func* 
-  * Unittest shows use api with google test.
+  * *Unittest* shows use API with google test.
     * [http://code.google.com/p/baiduhook/source/browse/trunk/test/unittest/simple/test_attach.cpp Simple] hooks simple method.
     * [http://code.google.com/p/baiduhook/source/browse/trunk/test/unittest/class/test_class.cpp Class] hooks class public/private method.
     * [http://code.google.com/p/baiduhook/source/browse/trunk/test/unittest/sharedlibrary/test_so.cpp SharedLibrary] hooks shared-library method.
