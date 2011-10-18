@@ -1,4 +1,4 @@
-#Baidu C/C++ Hooking Framework Demos.
+
 
 = Introduction =
 
