@@ -3,7 +3,7 @@
 Demos as follow:
   * *System* shows hook system method
     * *disk*
-      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/write/writefile.cpp Write] trigger disk error by using default load library
+      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/write/writefile.cpp Write] trigger disk error by using default hooking library
         # {{{bhook ./writefile}}}
         # {{{pgrep writefile}}}
         # {{{bhook -e write -p 100 -i 28 <pid>}}}
