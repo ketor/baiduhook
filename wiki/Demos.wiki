@@ -1,7 +1,7 @@
 #summary Baidu C/C++ Hooking Framework Demos.
 
 Demos as follow:
-  * *System* shows hook system method
+  * *System* shows hooking system function
     * *disk*
       * [http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/write/writefile.cpp Write] trigger disk error by using default hooking library
         # {{{bhook ./writefile}}}
@@ -10,18 +10,18 @@ Demos as follow:
       * trigger disk error by using user hooking library.(Source:[http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/user_write/user_write.cpp user_write.cpp], Hook:[http://code.google.com/p/baiduhook/source/browse/trunk/test/disk/user_write/hook.cpp hook.cpp])
         # {{{bhook -u hook.so ./user_write}}}
     * *memory*
-      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/memory/api/malloc.cpp Malloc] hooks system method *malloc* by using API
+      * [http://code.google.com/p/baiduhook/source/browse/trunk/test/memory/api/malloc.cpp Malloc] hooks system function *malloc* by using API
     * *net* similar to disk demos
       * Network is unreachable:  {{{bhook -e connect -p 100 -i 101 <pid>}}}
       * Connection reset by peer:  {{{bhook -e recv -p 100 -i 104 <pid>}}}
     * *other* 
-      * hooks system method *printf* through shared library.(Source:[http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/main.cpp main.cpp], Hook:[http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/my_printf.cpp my_printf.cpp])
+      * hooks system function *printf* through shared library.(Source:[http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/main.cpp main.cpp], Hook:[http://code.google.com/p/baiduhook/source/browse/trunk/test/system/user_printf/my_printf.cpp my_printf.cpp])
         # {{{bhook -u my_printf.so ./main}}}
-  * *Program* shows a variety of hook method for the program
-    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/simple/hook.cpp Simple] hooks simple method through shared library
-    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/library/attachlib.cpp Library] hooks static library method by using API. 
-    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/api/api.cpp API] hooks system method *fread* and program method *func* 
-  * *Unittest* shows use API with google test.
-    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/unittest/simple/test_attach.cpp Simple] hooks simple method.
-    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/unittest/class/test_class.cpp Class] hooks class public/private method.
-    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/unittest/sharedlibrary/test_so.cpp SharedLibrary] hooks shared-library method.
+  * *Program* shows a variety of hooking functions for the program
+    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/simple/hook.cpp Simple] hooks simple function through shared library
+    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/library/attachlib.cpp Library] hooks static library function by using API. 
+    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/program/api/api.cpp API] hooks system function *fread* and program function *func* 
+  * *Unittest* shows using API with google test.
+    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/unittest/simple/test_attach.cpp Simple] hooks simple function.
+    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/unittest/class/test_class.cpp Class] hooks class public/private function.
+    * [http://code.google.com/p/baiduhook/source/browse/trunk/test/unittest/sharedlibrary/test_so.cpp SharedLibrary] hooks shared-library function.
