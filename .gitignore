@@ -1,0 +1,77 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+#Mac DS_Store
+*.DS_Store
+
+#VIM swp
+*.swp
+
+#automake
+AUTHORS
+ChangeLog
+INSTALL
+NEWS
+README
+COPYING
+
+#Ctags
+tags
+
+#Python
+*.pyc
+
+#configure & make
+Makefile
+Makefile.in
+build-aux
+autom4te.cache/
+config.guess
+config.h.in
+config.log
+config.status
+config.sub
+configure
+depcomp
+install-sh
+libtool
+ltmain.sh
+missing
+.deps
+.dirstamp
+.Tpo
+*.m4
+compile
+
+#bin
+scripts/bhook
+test/Makefile.env
+test/RunEnv.sh
+
